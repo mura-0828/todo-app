@@ -6,3 +6,13 @@ export async function GET() {
   const todos: Todo[] = await prisma.todo.findMany()
   return Response.json(todos)
 }
+
+export async function POST(request: Request) {
+  const { title }: { title: string } = await request.json()
+  const response = await prisma.todo.create({
+    data: {
+      title,
+    },
+  })
+  return Response.json(response)
+}
