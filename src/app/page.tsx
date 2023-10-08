@@ -1,28 +1,31 @@
 'use client'
-import Image from 'next/image'
-import { useState } from 'react'
-
-type Todo = {
-  id: number
-  title: string
-  completed: boolean
-}
-
-const todos: Todo[] = [
-  { id: 1, title: 'todo1', completed: false },
-  { id: 2, title: 'todo2', completed: false },
-  { id: 3, title: 'todo3', completed: true },
-]
+import { Todo } from '@prisma/client'
+import { useEffect, useState } from 'react'
 
 export default function Home() {
   const [inputValue, setInputValue] = useState('')
+  const [todos, setTodos] = useState<Todo[]>([])
+
+  useEffect(() => {
+    const getTest = async () => {
+      const todos = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/todo`)
+      const json = await todos.json()
+      setTodos(json)
+    }
+    getTest()
+  }, [])
+
   return (
     <div>
       <h1>todo</h1>
       {todos.map((todo) => (
         <div key={todo.id}>
           <p>{todo.title}</p>
-          <input type='checkbox' checked={todo.completed} />
+          <input
+            type='checkbox'
+            checked={todo.completed}
+            onChange={() => console.log('completedを切り替える処理')}
+          />
           <button
             onClick={(e) => {
               e.preventDefault()
