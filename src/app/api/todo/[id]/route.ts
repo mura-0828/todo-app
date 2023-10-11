@@ -17,7 +17,7 @@ export async function DELETE(
   return Response.json(response)
 }
 
-export async function PUT(
+export async function PATCH(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {

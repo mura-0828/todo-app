@@ -31,7 +31,7 @@ export default function Home() {
                 const response = await fetch(
                   `${process.env.NEXT_PUBLIC_API_URL}/todo/${todo.id}`,
                   {
-                    method: 'PUT',
+                    method: 'PATCH',
                     headers: {
                       'Content-Type': 'application/json',
                     },
@@ -96,7 +96,7 @@ export default function Home() {
       >
         <input
           type='text'
-          className='border border-gray-400 px-4 py-2 mr-2 rounded'
+          className='border border-gray-400 px-4 py-2 mr-2 rounded text-black'
           value={inputValue || ''}
           onChange={(e) => setInputValue(e.target.value)}
           placeholder='Todoを入力してください'
